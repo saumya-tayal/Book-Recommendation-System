@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Discover Your Next Favorite Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yellow-primary': '#FCD34D',
+                        'yellow-secondary': '#FEF3C7',
+                        'yellow-accent': '#F59E0B'
+                    },
+                    fontFamily: {
+                        'roboto': ['Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-roboto bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-yellow-accent">📚 BookNest</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My TBR</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Reviews</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Permanent Search Bar -->
+                    <div class="relative hidden md:block">
+                        <input type="text" id="permanentSearch" placeholder="Search books..." class="w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-accent">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button id="loginBtn" class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors">Login</button>
+                    <button id="signupBtn" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- Home Page -->
+        <div id="homePage" class="page-content">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-r from-yellow-secondary to-white py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-5xl font-bold text-gray-800 mb-6">Discover Your Next Favorite Book</h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Build your reading list, track your progress, and get personalized recommendations from our vast collection of books.</p>
+                   
+                    <!-- Search Bar -->
+                    <div class="max-w-2xl mx-auto relative">
+                        <input type="text" id="searchInput" placeholder="Search for books, authors, or genres..." class="w-full px-6 py-4 text-lg border-2 border-yellow-primary rounded-full focus:outline-none focus:border-yellow-accent shadow-lg">
+                        <button class="absolute right-2 top-2 bg-yellow-accent hover:bg-yellow-600 text-white p-3 rounded-full transition-colors">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Books Section -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">Popular Books</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="popularBooks">
+                        <!-- Popular books will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Releases Section -->
+            <section class="py-16 bg-yellow-secondary">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">New Releases</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="newReleases">
+                        <!-- New releases will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations Section -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-8">Recommended for You</h2>
+                    <div id="recommendationsContent">
+                        <!-- Recommendations or login prompt will be populated here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Search Results Overlay -->
+        <div id="searchOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40">
+            <div class="bg-white h-full overflow-y-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-800">Search Results</h1>
+                        <button id="closeSearch" class="text-gray-500 hover:text-gray-700 text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                   
+                    <!-- Search and Filters -->
+                    <div class="bg-yellow-secondary p-6 rounded-lg mb-8">
+                        <div class="flex flex-col md:flex-row gap-4 mb-4">
+                            <input type="text" id="overlaySearch" placeholder="Search books..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                            <select id="genreFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                                <option value="">All Genres</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="mystery">Mystery</option>
+                                <option value="romance">Romance</option>
+                                <option value="sci-fi">Sci-Fi</option>
+                                <option value="fantasy">Fantasy</option>
+                            </select>
+                            <select id="ratingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                                <option value="">All Ratings</option>
+                                <option value="4">4+ Stars</option>
+                                <option value="3">3+ Stars</option>
+                                <option value="2">2+ Stars</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Search Results -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="searchResults">
+                        <!-- Search results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TBR List Page -->
+        <div id="tbrPage" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-8">My To-Be-Read List</h1>
+                <div class="bg-yellow-secondary p-4 rounded-lg mb-6">
+                    <p class="text-gray-700">📚 You have <span id="tbrCount">0</span> books in your TBR list</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="tbrList">
+                    <!-- TBR books will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Page -->
+        <div id="reviewsPage" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-8">My Reviews</h1>
+                <div class="space-y-6" id="reviewsList">
+                    <!-- Reviews will be populated here -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full mx-4 relative">
+            <button id="closeLoginModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Login to BookNest</h2>
+            <form id="loginForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                </div>
+                <button type="submit" class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Login</button>
+                <div class="text-center">
+                    <button type="button" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
+                        <i class="fab fa-google mr-2"></i>Login with Google
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full mx-4 relative">
+            <button id="closeSignupModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Join BookNest</h2>
+            <form id="signupForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Full Name</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                </div>
+                <button type="submit" class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Sign Up</button>
+                <div class="text-center">
+                    <button type="button" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
+                        <i class="fab fa-google mr-2"></i>Sign up with Google
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Book Detail Modal -->
+    <div id="bookModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+            <div id="bookModalContent">
+                <!-- Book details will be populated here -->
+            </div>
+            <button id="closeBookModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Sample book data
+        const sampleBooks = [
+            {
+                id: 1,
+                title: "The Seven Husbands of Evelyn Hugo",
+                author: "Taylor Jenkins Reid",
+                genre: "fiction",
+                rating: 4.5,
+                cover: "📖",
+                description: "A reclusive Hollywood icon finally tells her story to a young journalist, revealing shocking secrets about her glamorous and scandalous life.",
+                goodreadsRating: 4.24
+            },
+            {
+                id: 2,
+                title: "Project Hail Mary",
+                author: "Andy Weir",
+                genre: "sci-fi",
+                rating: 4.7,
+                cover: "🚀",
+                description: "A lone astronaut must save humanity in this thrilling science fiction adventure filled with humor and heart.",
+                goodreadsRating: 4.52
+            },
+            {
+                id: 3,
+                title: "The Thursday Murder Club",
+                author: "Richard Osman",
+                genre: "mystery",
+                rating: 4.2,
+                cover: "🔍",
+                description: "Four unlikely friends meet weekly to investigate cold cases, but soon find themselves in the middle of their first live case.",
+                goodreadsRating: 4.18
+            },
+            {
+                id: 4,
+                title: "Beach Read",
+                author: "Emily Henry",
+                genre: "romance",
+                rating: 4.3,
+                cover: "🏖️",
+                description: "Two rival writers challenge each other to write outside their comfort zones during a summer that changes everything.",
+                goodreadsRating: 4.05
+            },
+            {
+                id: 5,
+                title: "The House in the Cerulean Sea",
+                author: "TJ Klune",
+                genre: "fantasy",
+                rating: 4.6,
+                cover: "🏠",
+                description: "A magical story about found family, featuring a caseworker who discovers an extraordinary group of magical children.",
+                goodreadsRating: 4.39
+            }
+        ];
+
+        // Application state
+        let currentUser = null;
+        let tbrBooks = [];
+        let userReviews = [];
+        let currentPage = 'home';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            populateBooks();
+            setupEventListeners();
+            showPage('home');
+        });
+
+        // Populate sample books
+        function populateBooks() {
+            populatePopularBooks();
+            populateNewReleases();
+            populateSearchResults(sampleBooks);
+        }
+
+        function populatePopularBooks() {
+            const container = document.getElementById('popularBooks');
+            container.innerHTML = sampleBooks.map(book => createBookCard(book)).join('');
+        }
+
+        function populateNewReleases() {
+            const container = document.getElementById('newReleases');
+            container.innerHTML = sampleBooks.slice(0, 3).map(book => createBookCard(book)).join('');
+        }
+
+        function populateSearchResults(books) {
+            const container = document.getElementById('searchResults');
+            container.innerHTML = books.map(book => createBookCard(book)).join('');
+        }
+
+        function createBookCard(book) {
+            return `
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer book-card" data-book-id="${book.id}">
+                    <div class="p-4">
+                        <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                        <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">${book.title}</h3>
+                        <p class="text-gray-600 text-sm mb-2">by ${book.author}</p>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-yellow-400">
+                                ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">${book.rating}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-yellow-primary hover:bg-yellow-accent text-gray-800 text-sm py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                                Add to TBR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTBRCard(book) {
+            return `
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                    <h3 class="font-semibold text-gray-800 mb-2">${book.title}</h3>
+                    <p class="text-gray-600 text-sm mb-4">by ${book.author}</p>
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-green-500 hover:bg-green-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors mark-as-read" data-book-id="${book.id}">
+                            Mark as Read
+                        </button>
+                        <button class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors remove-from-tbr" data-book-id="${book.id}">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.textContent.toLowerCase().replace(' ', '');
+                    if (page === 'home') showPage('home');
+                    else if (page === 'mytbr') showPage('tbr');
+                    else if (page === 'reviews') showPage('reviews');
+                });
+            });
+
+            // Modals
+            document.getElementById('loginBtn').addEventListener('click', () => showModal('loginModal'));
+            document.getElementById('signupBtn').addEventListener('click', () => showModal('signupModal'));
+            document.getElementById('closeLoginModal').addEventListener('click', () => hideModal('loginModal'));
+            document.getElementById('closeSignupModal').addEventListener('click', () => hideModal('signupModal'));
+            document.getElementById('closeBookModal').addEventListener('click', () => hideModal('bookModal'));
+
+            // Forms
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+
+            // Search
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    showSearchOverlay(this.value);
+                }
+            });
+
+            document.getElementById('permanentSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    showSearchOverlay(this.value);
+                }
+            });
+
+            document.getElementById('closeSearch').addEventListener('click', hideSearchOverlay);
+            document.getElementById('overlaySearch').addEventListener('input', filterBooks);
+            document.getElementById('genreFilter').addEventListener('change', filterBooks);
+            document.getElementById('ratingFilter').addEventListener('change', filterBooks);
+
+            // Book interactions
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('book-card') || e.target.closest('.book-card')) {
+                    const bookCard = e.target.classList.contains('book-card') ? e.target : e.target.closest('.book-card');
+                    const bookId = parseInt(bookCard.dataset.bookId);
+                    showBookDetails(bookId);
+                }
+
+                if (e.target.classList.contains('add-to-tbr')) {
+                    e.stopPropagation();
+                    const bookId = parseInt(e.target.dataset.bookId);
+                    addToTBR(bookId);
+                }
+
+                if (e.target.classList.contains('remove-from-tbr')) {
+                    const bookId = parseInt(e.target.dataset.bookId);
+                    removeFromTBR(bookId);
+                }
+
+                if (e.target.classList.contains('mark-as-read')) {
+                    const bookId = parseInt(e.target.dataset.bookId);
+                    markAsRead(bookId);
+                }
+            });
+        }
+
+        function showPage(pageName) {
+            document.querySelectorAll('.page-content').forEach(page => page.classList.add('hidden'));
+           
+            if (pageName === 'home') {
+                document.getElementById('homePage').classList.remove('hidden');
+                updateRecommendationsSection();
+            } else if (pageName === 'tbr') {
+                document.getElementById('tbrPage').classList.remove('hidden');
+                updateTBRPage();
+            } else if (pageName === 'reviews') {
+                document.getElementById('reviewsPage').classList.remove('hidden');
+                updateReviewsPage();
+            }
+           
+            currentPage = pageName;
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.getElementById(modalId).classList.add('flex');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            currentUser = { name: 'Demo User', email: 'demo@booknest.com' };
+            hideModal('loginModal');
+            updateAuthButtons();
+            updateRecommendationsSection();
+            alert('Welcome back! You are now logged in.');
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            currentUser = { name: 'New User', email: 'newuser@booknest.com' };
+            hideModal('signupModal');
+            updateAuthButtons();
+            updateRecommendationsSection();
+            alert('Welcome to BookNest! Your account has been created.');
+        }
+
+        function updateAuthButtons() {
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+           
+            if (currentUser) {
+                loginBtn.textContent = 'Profile';
+                signupBtn.textContent = 'Logout';
+                signupBtn.onclick = logout;
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginBtn').textContent = 'Login';
+            document.getElementById('signupBtn').textContent = 'Sign Up';
+            document.getElementById('signupBtn').onclick = () => showModal('signupModal');
+            updateRecommendationsSection();
+            alert('You have been logged out.');
+        }
+
+        function addToTBR(bookId) {
+            const book = sampleBooks.find(b => b.id === bookId);
+            if (book && !tbrBooks.find(b => b.id === bookId)) {
+                tbrBooks.push(book);
+                alert(`"${book.title}" has been added to your TBR list!`);
+                updateTBRCount();
+            }
+        }
+
+        function removeFromTBR(bookId) {
+            tbrBooks = tbrBooks.filter(book => book.id !== bookId);
+            updateTBRPage();
+            updateTBRCount();
+        }
+
+        function markAsRead(bookId) {
+            const book = tbrBooks.find(b => b.id === bookId);
+            if (book) {
+                removeFromTBR(bookId);
+                // Add to reviews with a sample review
+                userReviews.push({
+                    ...book,
+                    userRating: 4,
+                    review: "Great book! Really enjoyed reading it.",
+                    dateRead: new Date().toLocaleDateString()
+                });
+                alert(`"${book.title}" has been marked as read and moved to your reviews!`);
+            }
+        }
+
+        function updateTBRCount() {
+            document.getElementById('tbrCount').textContent = tbrBooks.length;
+        }
+
+        function updateTBRPage() {
+            const container = document.getElementById('tbrList');
+            if (tbrBooks.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">Your TBR list is empty. Start adding some books!</div>';
+            } else {
+                container.innerHTML = tbrBooks.map(book => createTBRCard(book)).join('');
+            }
+            updateTBRCount();
+        }
+
+        function updateReviewsPage() {
+            const container = document.getElementById('reviewsList');
+            if (userReviews.length === 0) {
+                container.innerHTML = '<div class="text-center py-12 text-gray-500">No reviews yet. Mark some books as read to start reviewing!</div>';
+            } else {
+                container.innerHTML = userReviews.map(review => `
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">${review.cover}</div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-lg text-gray-800">${review.title}</h3>
+                                <p class="text-gray-600 mb-2">by ${review.author}</p>
+                                <div class="flex items-center mb-3">
+                                    <div class="flex text-yellow-400">
+                                        ${'★'.repeat(review.userRating)}${'☆'.repeat(5 - review.userRating)}
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">Read on ${review.dateRead}</span>
+                                </div>
+                                <p class="text-gray-700">${review.review}</p>
+                                <div class="mt-4 flex gap-2">
+                                    <button class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-4 py-2 rounded font-medium transition-colors">Edit Review</button>
+                                    <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded font-medium transition-colors">Delete Review</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateRecommendationsSection() {
+            const container = document.getElementById('recommendationsContent');
+           
+            if (!currentUser) {
+                // Show login prompt for non-logged in users
+                container.innerHTML = `
+                    <div class="bg-yellow-secondary p-8 rounded-lg text-center">
+                        <div class="text-6xl mb-4">🔐</div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Get Personalized Recommendations</h3>
+                        <p class="text-gray-600 mb-6">Log in to see books recommended just for you based on your reading history and preferences.</p>
+                        <button id="loginForRecommendations" class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors">
+                            Login for Recommendations
+                        </button>
+                    </div>
+                `;
+               
+                // Add event listener for the login button
+                document.getElementById('loginForRecommendations').addEventListener('click', () => {
+                    showModal('loginModal');
+                });
+            } else {
+                // Show recommendations for logged in users
+                const recommendations = sampleBooks.slice(1, 4); // Sample recommendations based on user activity
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        ${recommendations.map(book => `
+                            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                                <div class="p-4">
+                                    <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                                    <h3 class="font-semibold text-gray-800 mb-2">${book.title}</h3>
+                                    <p class="text-gray-600 text-sm mb-2">by ${book.author}</p>
+                                    <div class="bg-yellow-secondary p-2 rounded text-sm text-gray-700 mb-3">
+                                        💡 Recommended because you liked similar ${book.genre} books
+                                    </div>
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                                        </div>
+                                        <span class="text-gray-600 text-sm ml-2">${book.rating}</span>
+                                    </div>
+                                    <button class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                                        Add to TBR
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function showSearchOverlay(searchTerm = '') {
+            document.getElementById('searchOverlay').classList.remove('hidden');
+            document.getElementById('overlaySearch').value = searchTerm;
+            filterBooks();
+        }
+
+        function hideSearchOverlay() {
+            document.getElementById('searchOverlay').classList.add('hidden');
+        }
+
+        function showBookDetails(bookId) {
+            const book = sampleBooks.find(b => b.id === bookId);
+            if (!book) return;
+
+            const modalContent = document.getElementById('bookModalContent');
+            modalContent.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="text-center">
+                        <div class="text-8xl mb-4">${book.cover}</div>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">${book.title}</h2>
+                        <p class="text-lg text-gray-600 mb-4">by ${book.author}</p>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400 text-lg">
+                                ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                            </div>
+                            <span class="text-gray-600 ml-2">${book.goodreadsRating} (Goodreads)</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="bg-yellow-secondary text-gray-800 px-3 py-1 rounded-full text-sm font-medium">${book.genre}</span>
+                        </div>
+                        <p class="text-gray-700 mb-6">${book.description}</p>
+                        <div class="flex gap-3">
+                            <button class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                                Add to TBR
+                            </button>
+                            <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                                Write Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+           
+            showModal('bookModal');
+        }
+
+        function filterBooks() {
+            const searchTerm = document.getElementById('overlaySearch').value.toLowerCase();
+            const genreFilter = document.getElementById('genreFilter').value;
+            const ratingFilter = parseFloat(document.getElementById('ratingFilter').value) || 0;
+
+            let filteredBooks = sampleBooks.filter(book => {
+                const matchesSearch = book.title.toLowerCase().includes(searchTerm) ||
+                                    book.author.toLowerCase().includes(searchTerm);
+                const matchesGenre = !genreFilter || book.genre === genreFilter;
+                const matchesRating = book.rating >= ratingFilter;
+               
+                return matchesSearch && matchesGenre && matchesRating;
+            });
+
+            populateSearchResults(filteredBooks);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970f4f07b6801be7',t:'MTc1NTQ5ODA2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
