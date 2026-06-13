@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,7 @@
         }
     </script>
 </head>
+
 <body class="font-roboto bg-white text-gray-800">
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
@@ -36,21 +38,30 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My TBR</a>
-                        <a href="#" class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Reviews</a>
+                        <a href="#"
+                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#"
+                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My
+                            TBR</a>
+                        <a href="#"
+                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Reviews</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
                     <!-- Permanent Search Bar -->
                     <div class="relative hidden md:block">
-                        <input type="text" id="permanentSearch" placeholder="Search books..." class="w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
-                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-accent">
+                        <input type="text" id="permanentSearch" placeholder="Search books..."
+                            class="w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                        <button
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-accent">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
-                    <button id="loginBtn" class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors">Login</button>
-                    <button id="signupBtn" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Sign Up</button>
+                    <button id="loginBtn"
+                        class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors">Login</button>
+                    <button id="signupBtn"
+                        class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Sign
+                        Up</button>
                 </div>
             </div>
         </div>
@@ -64,12 +75,15 @@
             <section class="bg-gradient-to-r from-yellow-secondary to-white py-20">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h1 class="text-5xl font-bold text-gray-800 mb-6">Discover Your Next Favorite Book</h1>
-                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Build your reading list, track your progress, and get personalized recommendations from our vast collection of books.</p>
-                   
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Build your reading list, track your
+                        progress, and get personalized recommendations from our vast collection of books.</p>
+
                     <!-- Search Bar -->
                     <div class="max-w-2xl mx-auto relative">
-                        <input type="text" id="searchInput" placeholder="Search for books, authors, or genres..." class="w-full px-6 py-4 text-lg border-2 border-yellow-primary rounded-full focus:outline-none focus:border-yellow-accent shadow-lg">
-                        <button class="absolute right-2 top-2 bg-yellow-accent hover:bg-yellow-600 text-white p-3 rounded-full transition-colors">
+                        <input type="text" id="searchInput" placeholder="Search for books, authors, or genres..."
+                            class="w-full px-6 py-4 text-lg border-2 border-yellow-primary rounded-full focus:outline-none focus:border-yellow-accent shadow-lg">
+                        <button
+                            class="absolute right-2 top-2 bg-yellow-accent hover:bg-yellow-600 text-white p-3 rounded-full transition-colors">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -117,12 +131,14 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                   
+
                     <!-- Search and Filters -->
                     <div class="bg-yellow-secondary p-6 rounded-lg mb-8">
                         <div class="flex flex-col md:flex-row gap-4 mb-4">
-                            <input type="text" id="overlaySearch" placeholder="Search books..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
-                            <select id="genreFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                            <input type="text" id="overlaySearch" placeholder="Search books..."
+                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                            <select id="genreFilter"
+                                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
                                 <option value="">All Genres</option>
                                 <option value="fiction">Fiction</option>
                                 <option value="mystery">Mystery</option>
@@ -130,7 +146,8 @@
                                 <option value="sci-fi">Sci-Fi</option>
                                 <option value="fantasy">Fantasy</option>
                             </select>
-                            <select id="ratingFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
+                            <select id="ratingFilter"
+                                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent">
                                 <option value="">All Ratings</option>
                                 <option value="4">4+ Stars</option>
                                 <option value="3">3+ Stars</option>
@@ -183,15 +200,21 @@
             <form id="loginForm">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
-                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                    <input type="email"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent"
+                        required>
                 </div>
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                    <input type="password"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent"
+                        required>
                 </div>
-                <button type="submit" class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Login</button>
+                <button type="submit"
+                    class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Login</button>
                 <div class="text-center">
-                    <button type="button" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
+                    <button type="button"
+                        class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
                         <i class="fab fa-google mr-2"></i>Login with Google
                     </button>
                 </div>
@@ -209,19 +232,28 @@
             <form id="signupForm">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2">Full Name</label>
-                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent"
+                        required>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
-                    <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                    <input type="email"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent"
+                        required>
                 </div>
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent" required>
+                    <input type="password"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-accent"
+                        required>
                 </div>
-                <button type="submit" class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Sign Up</button>
+                <button type="submit"
+                    class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors mb-4">Sign
+                    Up</button>
                 <div class="text-center">
-                    <button type="button" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
+                    <button type="button"
+                        class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors mb-4">
                         <i class="fab fa-google mr-2"></i>Sign up with Google
                     </button>
                 </div>
@@ -242,59 +274,20 @@
     </div>
 
     <script>
-        // Sample book data
-        const sampleBooks = [
-            {
-                id: 1,
-                title: "The Seven Husbands of Evelyn Hugo",
-                author: "Taylor Jenkins Reid",
-                genre: "fiction",
-                rating: 4.5,
-                cover: "📖",
-                description: "A reclusive Hollywood icon finally tells her story to a young journalist, revealing shocking secrets about her glamorous and scandalous life.",
-                goodreadsRating: 4.24
-            },
-            {
-                id: 2,
-                title: "Project Hail Mary",
-                author: "Andy Weir",
-                genre: "sci-fi",
-                rating: 4.7,
-                cover: "🚀",
-                description: "A lone astronaut must save humanity in this thrilling science fiction adventure filled with humor and heart.",
-                goodreadsRating: 4.52
-            },
-            {
-                id: 3,
-                title: "The Thursday Murder Club",
-                author: "Richard Osman",
-                genre: "mystery",
-                rating: 4.2,
-                cover: "🔍",
-                description: "Four unlikely friends meet weekly to investigate cold cases, but soon find themselves in the middle of their first live case.",
-                goodreadsRating: 4.18
-            },
-            {
-                id: 4,
-                title: "Beach Read",
-                author: "Emily Henry",
-                genre: "romance",
-                rating: 4.3,
-                cover: "🏖️",
-                description: "Two rival writers challenge each other to write outside their comfort zones during a summer that changes everything.",
-                goodreadsRating: 4.05
-            },
-            {
-                id: 5,
-                title: "The House in the Cerulean Sea",
-                author: "TJ Klune",
-                genre: "fantasy",
-                rating: 4.6,
-                cover: "🏠",
-                description: "A magical story about found family, featuring a caseworker who discovers an extraordinary group of magical children.",
-                goodreadsRating: 4.39
-            }
-        ];
+        let books = [];
+
+        async function fetchBooks() {
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/books"
+            );
+
+            books = await response.json();
+
+            console.log(books);
+
+            populateBooks();
+        }
 
         // Application state
         let currentUser = null;
@@ -303,27 +296,38 @@
         let currentPage = 'home';
 
         // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            populateBooks();
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchBooks();
             setupEventListeners();
             showPage('home');
         });
 
-        // Populate sample books
+        // Populate books
         function populateBooks() {
             populatePopularBooks();
             populateNewReleases();
-            populateSearchResults(sampleBooks);
+            populateSearchResults(books);
         }
 
         function populatePopularBooks() {
             const container = document.getElementById('popularBooks');
-            container.innerHTML = sampleBooks.map(book => createBookCard(book)).join('');
+
+            container.innerHTML =
+                books
+                    .slice(0, 6)
+                    .map(book => createBookCard(book));
         }
 
         function populateNewReleases() {
+
             const container = document.getElementById('newReleases');
-            container.innerHTML = sampleBooks.slice(0, 3).map(book => createBookCard(book)).join('');
+
+            container.innerHTML =
+                books
+                    .slice(0, 3)
+                    .map(book => createBookCard(book))
+                    .join('');
+
         }
 
         function populateSearchResults(books) {
@@ -333,19 +337,19 @@
 
         function createBookCard(book) {
             return `
-                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer book-card" data-book-id="${book.id}">
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer book-card" data-book-id="${book.bookID}">
                     <div class="p-4">
-                        <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                        <div class="text-6xl mb-4 text-center">📚</div>
                         <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">${book.title}</h3>
-                        <p class="text-gray-600 text-sm mb-2">by ${book.author}</p>
+                        <p class="text-gray-600 text-sm mb-2">by ${book.authors}</p>
                         <div class="flex items-center mb-3">
                             <div class="flex text-yellow-400">
-                                ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                                ${'★'.repeat(Math.floor(book.average_rating))}${'☆'.repeat(5 - Math.floor(book.average_rating))}
                             </div>
-                            <span class="text-gray-600 text-sm ml-2">${book.rating}</span>
+                            <span class="text-gray-600 text-sm ml-2">${book.average_rating}</span>
                         </div>
                         <div class="flex gap-2">
-                            <button class="flex-1 bg-yellow-primary hover:bg-yellow-accent text-gray-800 text-sm py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                            <button class="flex-1 bg-yellow-primary hover:bg-yellow-accent text-gray-800 text-sm py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.bookID}">
                                 Add to TBR
                             </button>
                         </div>
@@ -357,14 +361,14 @@
         function createTBRCard(book) {
             return `
                 <div class="bg-white rounded-lg shadow-md p-4">
-                    <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                    <div class="text-6xl mb-4 text-center">📚</div>
                     <h3 class="font-semibold text-gray-800 mb-2">${book.title}</h3>
-                    <p class="text-gray-600 text-sm mb-4">by ${book.author}</p>
+                    <p class="text-gray-600 text-sm mb-4">by ${book.authors}</p>
                     <div class="flex gap-2">
-                        <button class="flex-1 bg-green-500 hover:bg-green-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors mark-as-read" data-book-id="${book.id}">
+                        <button class="flex-1 bg-green-500 hover:bg-green-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors mark-as-read" data-book-id="${book.bookID}">
                             Mark as Read
                         </button>
-                        <button class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors remove-from-tbr" data-book-id="${book.id}">
+                        <button class="bg-red-500 hover:bg-red-600 text-white text-sm py-2 px-3 rounded font-medium transition-colors remove-from-tbr" data-book-id="${book.bookID}">
                             Remove
                         </button>
                     </div>
@@ -375,7 +379,7 @@
         function setupEventListeners() {
             // Navigation
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
                     const page = this.textContent.toLowerCase().replace(' ', '');
                     if (page === 'home') showPage('home');
@@ -396,13 +400,13 @@
             document.getElementById('signupForm').addEventListener('submit', handleSignup);
 
             // Search
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            document.getElementById('searchInput').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     showSearchOverlay(this.value);
                 }
             });
 
-            document.getElementById('permanentSearch').addEventListener('keypress', function(e) {
+            document.getElementById('permanentSearch').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     showSearchOverlay(this.value);
                 }
@@ -414,7 +418,7 @@
             document.getElementById('ratingFilter').addEventListener('change', filterBooks);
 
             // Book interactions
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 if (e.target.classList.contains('book-card') || e.target.closest('.book-card')) {
                     const bookCard = e.target.classList.contains('book-card') ? e.target : e.target.closest('.book-card');
                     const bookId = parseInt(bookCard.dataset.bookId);
@@ -441,7 +445,7 @@
 
         function showPage(pageName) {
             document.querySelectorAll('.page-content').forEach(page => page.classList.add('hidden'));
-           
+
             if (pageName === 'home') {
                 document.getElementById('homePage').classList.remove('hidden');
                 updateRecommendationsSection();
@@ -452,7 +456,7 @@
                 document.getElementById('reviewsPage').classList.remove('hidden');
                 updateReviewsPage();
             }
-           
+
             currentPage = pageName;
         }
 
@@ -487,7 +491,7 @@
         function updateAuthButtons() {
             const loginBtn = document.getElementById('loginBtn');
             const signupBtn = document.getElementById('signupBtn');
-           
+
             if (currentUser) {
                 loginBtn.textContent = 'Profile';
                 signupBtn.textContent = 'Logout';
@@ -505,8 +509,11 @@
         }
 
         function addToTBR(bookId) {
-            const book = sampleBooks.find(b => b.id === bookId);
-            if (book && !tbrBooks.find(b => b.id === bookId)) {
+            const book = books.find(
+                b => b.bookID === bookId
+            );
+
+            if (book && !tbrBooks.find(b => b.bookID === bookId)) {
                 tbrBooks.push(book);
                 alert(`"${book.title}" has been added to your TBR list!`);
                 updateTBRCount();
@@ -514,16 +521,18 @@
         }
 
         function removeFromTBR(bookId) {
-            tbrBooks = tbrBooks.filter(book => book.id !== bookId);
+            tbrBooks = tbrBooks.filter(book => book.bookID !== bookId);
             updateTBRPage();
             updateTBRCount();
         }
 
         function markAsRead(bookId) {
-            const book = tbrBooks.find(b => b.id === bookId);
+            const book = tbrBooks.find(
+                b => b.bookID === bookId
+            );
             if (book) {
                 removeFromTBR(bookId);
-                // Add to reviews with a sample review
+                // Add to reviews
                 userReviews.push({
                     ...book,
                     userRating: 4,
@@ -580,7 +589,7 @@
 
         function updateRecommendationsSection() {
             const container = document.getElementById('recommendationsContent');
-           
+
             if (!currentUser) {
                 // Show login prompt for non-logged in users
                 container.innerHTML = `
@@ -593,32 +602,32 @@
                         </button>
                     </div>
                 `;
-               
+
                 // Add event listener for the login button
                 document.getElementById('loginForRecommendations').addEventListener('click', () => {
                     showModal('loginModal');
                 });
             } else {
                 // Show recommendations for logged in users
-                const recommendations = sampleBooks.slice(1, 4); // Sample recommendations based on user activity
+                const recommendations = books.slice(1, 4);
                 container.innerHTML = `
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         ${recommendations.map(book => `
                             <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
                                 <div class="p-4">
-                                    <div class="text-6xl mb-4 text-center">${book.cover}</div>
+                                    <div class="text-6xl mb-4 text-center">📚</div>
                                     <h3 class="font-semibold text-gray-800 mb-2">${book.title}</h3>
-                                    <p class="text-gray-600 text-sm mb-2">by ${book.author}</p>
+                                    <p class="text-gray-600 text-sm mb-2">by ${book.authors}</p>
                                     <div class="bg-yellow-secondary p-2 rounded text-sm text-gray-700 mb-3">
                                         💡 Recommended because you liked similar ${book.genre} books
                                     </div>
                                     <div class="flex items-center mb-3">
                                         <div class="flex text-yellow-400">
-                                            ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                                            ${'★'.repeat(Math.floor(book.average_rating))}${'☆'.repeat(5 - Math.floor(book.average_rating))}
                                         </div>
-                                        <span class="text-gray-600 text-sm ml-2">${book.rating}</span>
+                                        <span class="text-gray-600 text-sm ml-2">${book.average_rating}</span>
                                     </div>
-                                    <button class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                                    <button class="w-full bg-yellow-primary hover:bg-yellow-accent text-gray-800 py-2 px-3 rounded font-medium transition-colors add-to-tbr" data-book-id="${book.bookID}">
                                         Add to TBR
                                     </button>
                                 </div>
@@ -640,21 +649,21 @@
         }
 
         function showBookDetails(bookId) {
-            const book = sampleBooks.find(b => b.id === bookId);
+            const book = books.find(b => b.bookID === bookId);
             if (!book) return;
 
             const modalContent = document.getElementById('bookModalContent');
             modalContent.innerHTML = `
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="text-center">
-                        <div class="text-8xl mb-4">${book.cover}</div>
+                        <div class="text-8xl mb-4">📚</div>
                     </div>
                     <div class="flex-1">
                         <h2 class="text-2xl font-bold text-gray-800 mb-2">${book.title}</h2>
-                        <p class="text-lg text-gray-600 mb-4">by ${book.author}</p>
+                        <p class="text-lg text-gray-600 mb-4">by ${book.authors}</p>
                         <div class="flex items-center mb-4">
                             <div class="flex text-yellow-400 text-lg">
-                                ${'★'.repeat(Math.floor(book.rating))}${'☆'.repeat(5 - Math.floor(book.rating))}
+                                ${'★'.repeat(Math.floor(book.average_rating))}${'☆'.repeat(5 - Math.floor(book.average_rating))}
                             </div>
                             <span class="text-gray-600 ml-2">${book.goodreadsRating} (Goodreads)</span>
                         </div>
@@ -663,7 +672,7 @@
                         </div>
                         <p class="text-gray-700 mb-6">${book.description}</p>
                         <div class="flex gap-3">
-                            <button class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors add-to-tbr" data-book-id="${book.id}">
+                            <button class="bg-yellow-primary hover:bg-yellow-accent text-gray-800 px-6 py-2 rounded-lg font-medium transition-colors add-to-tbr" data-book-id="${book.bookID}">
                                 Add to TBR
                             </button>
                             <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
@@ -673,7 +682,7 @@
                     </div>
                 </div>
             `;
-           
+
             showModal('bookModal');
         }
 
@@ -682,17 +691,18 @@
             const genreFilter = document.getElementById('genreFilter').value;
             const ratingFilter = parseFloat(document.getElementById('ratingFilter').value) || 0;
 
-            let filteredBooks = sampleBooks.filter(book => {
+            let filteredBooks = books.filter(book => {
                 const matchesSearch = book.title.toLowerCase().includes(searchTerm) ||
-                                    book.author.toLowerCase().includes(searchTerm);
+                    book.authors.toLowerCase().includes(searchTerm);
                 const matchesGenre = !genreFilter || book.genre === genreFilter;
-                const matchesRating = book.rating >= ratingFilter;
-               
+                const matchesRating = book.average_rating >= ratingFilter;
+
                 return matchesSearch && matchesGenre && matchesRating;
             });
 
             populateSearchResults(filteredBooks);
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'970f4f07b6801be7',t:'MTc1NTQ5ODA2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
+
 </html>

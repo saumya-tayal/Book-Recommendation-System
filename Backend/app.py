@@ -1,41 +1,48 @@
+# Backend code to serve the cleaned data
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import pandas as pd
 
-df = pd.read_csv("books.csv")
+app = Flask(__name__)
+CORS(app)
 
-# remove spaces in column names
-df.columns = df.columns.str.strip()
+df = pd.read_csv("Data/cleaned_books.csv")
 
-# convert date
-df["publication_date"] = pd.to_datetime(df["publication_date"])
 
-# remove unwanted columns
-df = df.drop(
-    columns=[
-        "isbn",
-        "text_reviews_count",
-        "publisher"
+@app.route("/")
+def home():
+    return "BookNest backend is running!"
+
+
+@app.route("/books")
+def get_books():
+
+    books = df.sort_values(
+    "average_rating",
+    ascending=False).head(50)
+
+    return jsonify(
+        books.to_dict(orient="records")
+    )
+
+@app.route("/search")
+def search_books():
+
+    query = request.args.get("q", "")
+
+    results = df[
+        df["title"]
+        .str.contains(
+            query,
+            case=False,
+            na=False
+        )
     ]
-)
 
-# keep most popular edition
-df = df.sort_values(
-    "ratings_count",
-    ascending=False
-)
+    return jsonify(
+        results.head(50).to_dict(orient="records")
+    )
 
-df = df.drop_duplicates(
-    subset=["title", "authors"],
-    keep="first"
-)
 
-# optional: sort back by ID
-df = df.sort_values("bookID")
-
-# save ACTUAL cleaned data
-df.to_csv(
-    "cleaned_books.csv",
-    index=False
-)
-
-print(df.shape)
-df = pd.read_csv("cleaned_books.csv")
+if __name__ == "__main__":
+    app.run(debug=True)
