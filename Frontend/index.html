@@ -40,9 +40,10 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#"
                             class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#"
-                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My
-                            TBR</a>
+                        <a href="#" onclick="showPage('tbr')"
+                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            My TBR
+                        </a>
                         <a href="#"
                             class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Reviews</a>
                     </div>
@@ -508,16 +509,28 @@
             alert('You have been logged out.');
         }
 
-        function addToTBR(bookId) {
-            const book = books.find(
-                b => b.bookID === bookId
+        async function addToTBR(bookId) {
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/tbr",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        book_id: bookId
+                    })
+                }
             );
 
-            if (book && !tbrBooks.find(b => b.bookID === bookId)) {
-                tbrBooks.push(book);
-                alert(`"${book.title}" has been added to your TBR list!`);
-                updateTBRCount();
-            }
+
+            const data = await response.json();
+
+            alert(data.message);
+
         }
 
         function removeFromTBR(bookId) {
@@ -547,13 +560,38 @@
             document.getElementById('tbrCount').textContent = tbrBooks.length;
         }
 
-        function updateTBRPage() {
-            const container = document.getElementById('tbrList');
+        async function updateTBRPage() {
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/tbr"
+            );
+
+
+            tbrBooks = await response.json();
+
+
+            const container = document.getElementById(
+                "tbrList"
+            );
+
+
             if (tbrBooks.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">Your TBR list is empty. Start adding some books!</div>';
-            } else {
-                container.innerHTML = tbrBooks.map(book => createTBRCard(book)).join('');
+
+                container.innerHTML =
+                    '<div class="col-span-full text-center py-12 text-gray-500">Your TBR list is empty. Start adding some books!</div>';
+
             }
+
+            else {
+
+                container.innerHTML =
+                    tbrBooks
+                        .map(book => createTBRCard(book))
+                        .join('');
+
+            }
+
+
             updateTBRCount();
         }
 
