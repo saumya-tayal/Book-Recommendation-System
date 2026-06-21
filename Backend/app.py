@@ -67,11 +67,29 @@ def get_tbr():
 def add_tbr():
 
     data = request.json
-
     book_id = data["book_id"]
 
-
     conn = get_db_connection()
+
+
+    existing = conn.execute(
+        """
+        SELECT *
+        FROM user_books
+        WHERE book_id = ?
+        """,
+        (book_id,)
+    ).fetchone()
+
+
+    if existing:
+
+        conn.close()
+
+        return jsonify(
+            {"message": "Book already exists in TBR"}
+        )
+
 
     conn.execute(
         """
