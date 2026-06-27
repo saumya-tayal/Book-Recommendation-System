@@ -25,6 +25,20 @@ CREATE TABLE IF NOT EXISTS books(
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users(
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    name TEXT NOT NULL,
+
+    email TEXT UNIQUE NOT NULL,
+
+    password_hash TEXT NOT NULL
+
+)
+""")
+
 
 # Create user tracker table
 
@@ -33,7 +47,9 @@ CREATE TABLE IF NOT EXISTS user_books(
 
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    book_id INTEGER,
+    user_id INTEGER NOT NULL,
+
+    book_id INTEGER NOT NULL,
 
     status TEXT,
 
@@ -44,6 +60,9 @@ CREATE TABLE IF NOT EXISTS user_books(
     date_added TEXT,
 
     date_finished TEXT,
+
+    FOREIGN KEY(user_id)
+        REFERENCES users(id),
 
     FOREIGN KEY(book_id)
         REFERENCES books(bookID)
@@ -67,7 +86,13 @@ df.to_sql(
 
 conn.commit()
 
-conn.close()
 
 
 print("Database created successfully 📚")
+
+cursor.execute(
+    "SELECT id, name, email FROM users"
+)
+
+print(cursor.fetchall())
+conn.close()

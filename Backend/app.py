@@ -1,10 +1,11 @@
-# Backend code to serve the cleaned data
+from flask_bcrypt import Bcrypt
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
 CORS(app)
+bcrypt = Bcrypt(app)
 
 def get_db_connection():
 
@@ -36,6 +37,124 @@ def get_books():
     return jsonify(
         [dict(book) for book in books]
     )
+
+@app.route("/signup", methods=["POST"])
+def signup():
+
+    data = request.json
+
+    name = data["name"]
+    email = data["email"]
+    password = data["password"]
+
+
+    conn = get_db_connection()
+
+
+    existing = conn.execute(
+        """
+        SELECT *
+        FROM users
+        WHERE email = ?
+        """,
+        (email,)
+    ).fetchone()
+
+
+    if existing:
+
+        conn.close()
+
+        return jsonify({
+            "message": "Email already exists"
+        })
+
+
+    password_hash = bcrypt.generate_password_hash(
+        password
+    ).decode("utf-8")
+
+
+    conn.execute(
+        """
+        INSERT INTO users
+        (name, email, password_hash)
+
+        VALUES (?, ?, ?)
+        """,
+        (
+            name,
+            email,
+            password_hash
+        )
+    )
+
+@app.route("/login", methods=["POST"])
+def login():
+
+    data = request.json
+
+    email = data["email"]
+    password = data["password"]
+
+
+    conn = get_db_connection()
+
+    user = conn.execute(
+        """
+        SELECT *
+        FROM users
+        WHERE email = ?
+        """,
+        (email,)
+    ).fetchone()
+
+
+    conn.close()
+
+
+    if not user:
+
+        return jsonify({
+            "message": "User not found"
+        }), 404
+
+
+    if bcrypt.check_password_hash(
+        user["password_hash"],
+        password
+    ):
+
+        return jsonify({
+
+            "message": "Login successful",
+
+            "user": {
+
+                "id": user["id"],
+
+                "name": user["name"],
+
+                "email": user["email"]
+
+            }
+
+        })
+
+
+    return jsonify({
+        "message": "Incorrect password"
+    }), 401
+
+
+    conn.commit()
+
+    conn.close()
+
+
+    return jsonify({
+        "message": "Signup successful"
+    })
 
 @app.route("/tbr", methods=["GET"])
 def get_tbr():
@@ -133,6 +252,25 @@ def search_books():
         results.head(50).to_dict(orient="records")
     )
 
+@app.route("/tbr/<int:book_id>", methods=["DELETE"])
+def remove_tbr(book_id):
+
+    conn = get_db_connection()
+
+    conn.execute(
+        """
+        DELETE FROM user_books
+        WHERE book_id = ?
+        """,
+        (book_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "message": "Book removed from TBR"
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

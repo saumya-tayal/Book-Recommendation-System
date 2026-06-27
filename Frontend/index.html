@@ -45,7 +45,8 @@
                             My TBR
                         </a>
                         <a href="#"
-                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My Reviews</a>
+                            class="nav-link text-gray-700 hover:text-yellow-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">My
+                            Reviews</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -298,9 +299,25 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function () {
+
+            const savedUser = JSON.parse(
+                localStorage.getItem("currentUser")
+            );
+
+            if (savedUser) {
+
+                currentUser = savedUser;
+
+                updateAuthButtons();
+
+            }
+
             fetchBooks();
+
             setupEventListeners();
+
             showPage('home');
+
         });
 
         // Populate books
@@ -471,22 +488,97 @@
             document.getElementById(modalId).classList.remove('flex');
         }
 
-        function handleLogin(e) {
+        async function handleLogin(e) {
+
             e.preventDefault();
-            currentUser = { name: 'Demo User', email: 'demo@booknest.com' };
-            hideModal('loginModal');
-            updateAuthButtons();
-            updateRecommendationsSection();
-            alert('Welcome back! You are now logged in.');
+
+            const email = document.getElementById("loginEmail").value;
+
+            const password = document.getElementById("loginPassword").value;
+
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                }
+            );
+
+
+            const data = await response.json();
+
+
+            if (response.ok) {
+
+                currentUser = data.user;
+
+                localStorage.setItem(
+                    "currentUser",
+                    JSON.stringify(data.user)
+                );
+
+                hideModal("loginModal");
+
+                updateAuthButtons();
+
+                updateRecommendationsSection();
+
+                alert("Welcome back, " + data.user.name + "!");
+
+            }
+
+            else {
+
+                alert(data.message);
+
+            }
+
         }
 
-        function handleSignup(e) {
+        async function handleSignup(e) {
+
             e.preventDefault();
-            currentUser = { name: 'New User', email: 'newuser@booknest.com' };
-            hideModal('signupModal');
-            updateAuthButtons();
-            updateRecommendationsSection();
-            alert('Welcome to BookNest! Your account has been created.');
+
+            const name = document.getElementById("signupName").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/signup",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            alert(data.message);
+
+            if (response.ok) {
+
+                hideModal("signupModal");
+
+            }
+
         }
 
         function updateAuthButtons() {
@@ -502,6 +594,7 @@
 
         function logout() {
             currentUser = null;
+            localStorage.removeItem("currentUser");
             document.getElementById('loginBtn').textContent = 'Login';
             document.getElementById('signupBtn').textContent = 'Sign Up';
             document.getElementById('signupBtn').onclick = () => showModal('signupModal');
@@ -533,10 +626,21 @@
 
         }
 
-        function removeFromTBR(bookId) {
-            tbrBooks = tbrBooks.filter(book => book.bookID !== bookId);
+        async function removeFromTBR(bookId) {
+
+            const response = await fetch(
+                `http://127.0.0.1:5000/tbr/${bookId}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            const data = await response.json();
+
+            alert(data.message);
+
             updateTBRPage();
-            updateTBRCount();
+
         }
 
         function markAsRead(bookId) {
